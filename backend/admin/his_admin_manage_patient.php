@@ -1,39 +1,27 @@
 <?php
-session_start();
-include('assets/inc/config.php');
-include('assets/inc/checklogin.php');
-check_login();
-$aid = $_SESSION['ad_id'];
-if (isset($_GET['delete'])) {
-    $id = intval($_GET['delete']);
-    // Fetch the details of the patient record before disabling
-    $stmt = $mysqli->prepare("SELECT * FROM his_patients WHERE pat_id = ?");
-    $stmt->bind_param('i', $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $patient = $result->fetch_assoc();
-    // Close the statement
-    $stmt->close();
-
-    // Move the patient record to the disabled patients table
-    $stmt = $mysqli->prepare("INSERT INTO disabled_patients (pat_id, pat_fname, pat_lname, pat_number, pat_addr, pat_type) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param('isssss', $patient['pat_id'], $patient['pat_fname'], $patient['pat_lname'], $patient['pat_number'], $patient['pat_addr'], $patient['pat_type']);
-    $stmt->execute();
-    $stmt->close();
-
-    // Update the status of the patient record to disabled
-    $status = 'disabled'; // Set the status to disabled
-    $stmt = $mysqli->prepare("UPDATE his_patients SET status = ? WHERE pat_id = ?");
-    $stmt->bind_param('si', $status, $id);
-    $stmt->execute();
-    $stmt->close();
-
-    if ($stmt) {
-        $success = "Patient Record Disabled";
-    } else {
-        $err = "Try Again Later";
+  session_start();
+  include('assets/inc/config.php');
+  include('assets/inc/checklogin.php');
+  check_login();
+  $aid=$_SESSION['ad_id'];
+  if(isset($_GET['delete']))
+  {
+        $id=intval($_GET['delete']);
+        $adn="delete from his_patients where pat_id=?";
+        $stmt= $mysqli->prepare($adn);
+        $stmt->bind_param('i',$id);
+        $stmt->execute();
+        $stmt->close();	 
+  
+          if($stmt)
+          {
+            $success = "Patients Records Deleted";
+          }
+            else
+            {
+                $err = "Try Again Later";
+            }
     }
-}
 ?>
 
 <!DOCTYPE html>
@@ -139,7 +127,7 @@ if (isset($_GET['delete'])) {
                                                     <td><?php echo $row->pat_type;?></td>
                                                     
                                                     <td>
-                                                        <a href="his_admin_manage_patient.php?disable=<?php echo $row->pat_id;?>" class="badge badge-warning"><i class=" mdi mdi-account-off-outline"></i> Disable</a>
+                                                        <a href="his_admin_manage_patient.php?delete=<?php echo $row->pat_id;?>" class="badge badge-danger"><i class=" mdi mdi-trash-can-outline "></i> Delete</a>
                                                         <a href="his_admin_view_single_patient.php?pat_id=<?php echo $row->pat_id;?>&&pat_number=<?php echo $row->pat_number;?>" class="badge badge-success"><i class="mdi mdi-eye"></i> View</a>
                                                         <a href="his_admin_update_single_patient.php?pat_id=<?php echo $row->pat_id;?>" class="badge badge-primary"><i class="mdi mdi-check-box-outline "></i> Update</a>
                                                     </td>
@@ -198,3 +186,4 @@ if (isset($_GET['delete'])) {
         
     </body>
 
+</html>
