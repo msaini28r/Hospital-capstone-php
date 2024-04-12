@@ -117,7 +117,11 @@
                                                         <option>Laboratory</option>
                                                         <option>Pharmacy</option>
                                                         <option>Accounting</option>
-                                                        <option>Surgery | Theatre</option>
+                                                        <option>Cardiologist</option>
+                                                        <option>Surgeon</option>
+                                                        <option>Neurologist</option>
+                                                        <option>Orthopedist</option>
+                                                        <option>Emergency physicians</option>
                                                     </select>
                                             </div>                                         
 
