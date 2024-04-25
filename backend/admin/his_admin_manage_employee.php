@@ -122,7 +122,7 @@ if (isset($_GET['enable'])) {
                         <div class="row">
                             <div class="col-12">
                                 <div class="card-box">
-                                    <h4 class="header-title">Disabled Employees</h4>
+                                    <h4 class="header-title">Previous Employees</h4>
                                     <div class="table-responsive">
                                         <table class="table table-bordered toggle-circle mb-0">
                                             <thead>
