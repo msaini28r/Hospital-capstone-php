@@ -95,7 +95,8 @@ CREATE TABLE `his_docs` (
   `doc_pwd` varchar(200) DEFAULT NULL,
   `doc_dept` varchar(200) DEFAULT NULL,
   `doc_number` varchar(200) DEFAULT NULL,
-  `doc_dpic` varchar(200) DEFAULT NULL
+  `doc_dpic` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`doc_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -195,7 +196,7 @@ INSERT INTO `his_medical_records` (`mdr_id`, `mdr_number`, `mdr_pat_name`, `mdr_
 --
 
 CREATE TABLE `his_patients` (
-  `pat_id` int(20) NOT NULL,
+  `pat_id` int(20) NOT NULL AUTO_INCREMENT,
   `pat_fname` varchar(200) DEFAULT NULL,
   `pat_lname` varchar(200) DEFAULT NULL,
   `pat_dob` varchar(200) DEFAULT NULL,
@@ -206,7 +207,9 @@ CREATE TABLE `his_patients` (
   `pat_type` varchar(200) DEFAULT NULL,
   `pat_date_joined` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
   `pat_ailment` varchar(200) DEFAULT NULL,
-  `pat_discharge_status` varchar(200) DEFAULT NULL
+  `pat_discharge_status` varchar(200) DEFAULT NULL,
+  `pat_pwd` varchar(200) DEFAULT NULL,  -- Add this line to store the password
+  PRIMARY KEY (`pat_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -483,9 +486,9 @@ ALTER TABLE `his_medical_records`
 
 --
 -- Indexes for table `his_patients`
---
-ALTER TABLE `his_patients`
-  ADD PRIMARY KEY (`pat_id`);
+-- --
+-- ALTER TABLE `his_patients`
+--   ADD PRIMARY KEY (`pat_id`);
 
 --
 -- Indexes for table `his_patient_transfers`
